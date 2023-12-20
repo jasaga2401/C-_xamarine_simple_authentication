@@ -22,18 +22,28 @@ namespace up
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
 
-            if (username == "admin" && password == "passwd")
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                DisplayAlert("Login", "Login success", "OK");                
-                Application.Current.MainPage = new HomePage();
-
-                //NavigationPage HomePage = new NavigationPage(new HomePage());
-                //await Navigation.PushAsync(new HomePage());
+                DisplayAlert("Login", "Not filled in", "OK");
+                usernameEntry.Text = string.Empty;
+                passwordEntry.Text = string.Empty;
             }
             else
-            {                
-                DisplayAlert("Login", "Login failed", "OK");                
-                passwordEntry.Text = string.Empty;
+            {
+                if (username == "admin" && password == "passwd")
+                {
+                    DisplayAlert("Login", "Login success", "OK");
+                    Application.Current.MainPage = new HomePage();
+
+                    //NavigationPage HomePage = new NavigationPage(new HomePage());
+                    //await Navigation.PushAsync(new HomePage());
+                }
+                else
+                {
+                    DisplayAlert("Login", "Login failed", "OK");
+                    usernameEntry.Text = string.Empty;
+                    passwordEntry.Text = string.Empty;
+                }
             }
         }
     }
